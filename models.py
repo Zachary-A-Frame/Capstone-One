@@ -24,28 +24,32 @@ class User(db.Model):
         unique=True,
     )
 
-    username = db.Column(
-        db.Text,
-        nullable=False,
-        unique=True,
-    )
-
     password = db.Column(
         db.Text,
         nullable=False,
     )
 
-    likes = db.relationship(
-        'Movie',
-        secondary="likes"
+    score = db.Column(
+        db.Integer,
+        default=0
     )
 
-    views = db.Column(
-        db.Text
+    image_url = db.Column(
+        db.Text,
+        default='/static/default_avatar.jpg'
     )
+
+    # views = db.Column(
+    #     db.Text
+    # )
+
+    # likes = db.relationship(
+    #     'Movie',
+    #     secondary="likes"
+    # )
 
     def __repr__(self):
-        return f"<User #{self.id}: {self.username}, {self.email}>"
+        return f"<User #{self.id}: {self.email}>"
 
     @classmethod
     def signup(cls, username, email, password):
@@ -57,7 +61,6 @@ class User(db.Model):
         hashed_pwd = bcrypt.generate_password_hash(password).decode('UTF-8')
 
         user = User(
-            username=username,
             email=email,
             password=hashed_pwd
         )
@@ -66,7 +69,7 @@ class User(db.Model):
         return user
 
     @classmethod
-    def authenticate(cls, username, password):
+    def authenticate(cls, email, password):
         """Find user with `username` and `password`.
 
         This is a class method (call it on the class, not an individual user.)
@@ -76,7 +79,7 @@ class User(db.Model):
         If can't find matching user (or if password is wrong), returns False.
         """
 
-        user = cls.query.filter_by(username=username).first()
+        user = cls.query.filter_by(email=email).first()
 
         if user:
             is_auth = bcrypt.check_password_hash(user.password, password)
@@ -85,24 +88,24 @@ class User(db.Model):
 
         return False
 
-class Movie(db.Model):
-    """A film"""
+# class Movie(db.Model):
+#     """A film"""
 
-    __tablename__ = 'movies'
+#     __tablename__ = 'movies'
 
-    id = db.Column(
-        db.Integer,
-        primary_key=True,
-    )
+#     id = db.Column(
+#         db.Integer,
+#         primary_key=True,
+#     )
 
-    title = db.Column(
-        db.String(140),
-        nullable=False,
-    )
+#     title = db.Column(
+#         db.String(140),
+#         nullable=False,
+#     )
 
-    views = db.Column(
-        db.Integer
-    )
+#     views = db.Column(
+#         db.Integer
+#     )
 
 
 
