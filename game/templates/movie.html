@@ -1,11 +1,12 @@
 {% extends 'base.html' %}
 
 {% block content %}
-      <h1>{{ movie.title }} ({{ movie.year }})</h1>
-      <h3>{{ plot }}</h3>
-      <p>Rotten Tomatoes Score: {{ movie.actual_score }}</p>
-      <img src="{{ poster }}">
+<p>{{ user.username }}: {{ user.score }}</p>
+<h1>{{ movie.title }} ({{ movie.year }})</h1>
+<h3>{{ movie.plot }}</h3>
+<p>Rotten Tomatoes Score: {{ movie.actual_score }}</p>
+<img src="{{ movie.poster }}">
 
-      <br>
-      <a href="/">Keep Playing!</a>
+<br>
+<a href="/">Keep Playing!</a>
 {% endblock %}

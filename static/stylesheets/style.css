@@ -6,10 +6,10 @@
   font-size: 35px;
   color: black;
   animation: fadeIn linear 3s;
-  -webkit-animation: fadeIn linear 3s;
-  -moz-animation: fadeIn linear 3s;
-  -o-animation: fadeIn linear 3s;
-  -ms-animation: fadeIn linear 3s;
+  -webkit-animation: fadeIn linear 2s;
+  -moz-animation: fadeIn linear 2s;
+  -o-animation: fadeIn linear 2s;
+  -ms-animation: fadeIn linear 2s;
   -webkit-user-select: none;
   /* Safari */
   -moz-user-select: none;
@@ -201,4 +201,23 @@ nav + .container {
   font-weight: bold;
   line-height: 28px;
   word-wrap: break-word;
+}
+
+#content {
+  margin: 40px;
+}
+
+.messages {
+  padding: 1rem;
+  font-size: 1.5rem;
+  border-radius: 1rem;
+  box-shadow: 0 3px 5px rgba(0, 0, 0, .2);
+}
+
+.messages .success {
+  background-color: rgba(0, 255, 0, 0.1);
+}
+
+.messages .error {
+  background-color: rgba(255, 0, 0, 0.1);
 }
