@@ -6,17 +6,11 @@ from sqlalchemy.exc import IntegrityError
 
 from password import password
 
-# from forms import UserAddForm, UserEditForm, LoginForm, MessageForm
 from models import db, connect_db
 
 # Blueprint Imports
 from auth.auth import signup_bp
-
-# CSV Reading
-import csv
-import pandas as pd
-import requests
-import random
+from game.game import game_bp
 
 CURR_USER_KEY = "curr_user"
 
@@ -38,5 +32,5 @@ connect_db(app)
 # View config
 # Blueprint Registrations
 
-app.register_blueprint(signup_bp, url_prefix='/signup')
-
+app.register_blueprint(signup_bp, url_prefix='/auth')
+app.register_blueprint(game_bp, url_prefix='/')

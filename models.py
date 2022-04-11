@@ -1,12 +1,11 @@
 """SQLAlchemy models for Warbler."""
 
-from datetime import datetime
-
 from flask_bcrypt import Bcrypt
 from flask_sqlalchemy import SQLAlchemy
 
 bcrypt = Bcrypt()
 db = SQLAlchemy()
+
 
 class User(db.Model):
     """User in the system."""
@@ -16,6 +15,12 @@ class User(db.Model):
     id = db.Column(
         db.Integer,
         primary_key=True,
+    )
+
+    username = db.Column(
+        db.Text,
+        nullable=False,
+        unique=True
     )
 
     email = db.Column(
@@ -34,33 +39,19 @@ class User(db.Model):
         default=0
     )
 
-    image_url = db.Column(
-        db.Text,
-        default='/static/default_avatar.jpg'
-    )
-
-    # views = db.Column(
-    #     db.Text
-    # )
-
-    # likes = db.relationship(
-    #     'Movie',
-    #     secondary="likes"
-    # )
-
     def __repr__(self):
         return f"<User #{self.id}: {self.email}>"
 
     @classmethod
     def signup(cls, username, email, password):
         """Sign up user.
-
         Hashes password and adds user to system.
         """
 
         hashed_pwd = bcrypt.generate_password_hash(password).decode('UTF-8')
 
         user = User(
+            username=username,
             email=email,
             password=hashed_pwd
         )
@@ -88,26 +79,74 @@ class User(db.Model):
 
         return False
 
-# class Movie(db.Model):
-#     """A film"""
 
-#     __tablename__ = 'movies'
+class Movie(db.Model):
+    """A film"""
 
-#     id = db.Column(
-#         db.Integer,
-#         primary_key=True,
-#     )
+    __tablename__ = 'movies'
 
-#     title = db.Column(
-#         db.String(140),
-#         nullable=False,
-#     )
+    id = db.Column(
+        db.Integer,
+        primary_key=True,
+        nullable=False,
+        unique=True
+    )
 
-#     views = db.Column(
-#         db.Integer
-#     )
+    year = db.Column(
+        db.Integer,
+        nullable=True,
+        unique=False
+    )
 
+    imdb = db.Column(
+        db.String(10),
+        nullable=False,
+        unique=True
+    )
 
+    title = db.Column(
+        db.String(140),
+        nullable=False,
+        unique=False
+    )
+
+    # V2
+    plot = db.Column(
+        db.String(1000),
+        nullable=False,
+        unique=False
+    )
+
+    poster = db.Column(
+        db.String(1500),
+        nullable=True,
+        unique=False
+    )
+
+    actual_score = db.Column(
+        db.Integer,
+        nullable=False,
+        unique=False
+    )
+    # views = db.Column(
+    #     db.Integer
+    # )
+
+    @classmethod
+    def addfilm(cls, title, year, imdb, plot, poster, actual_score):
+        """Registers film to our DB"""
+
+        movie = Movie(
+            title=title,
+            year=year,
+            imdb=imdb,
+            plot=plot,
+            poster=poster,
+            actual_score=actual_score
+        )
+
+        db.session.add(movie)
+        return movie
 
 def connect_db(app):
     """Connect this database to provided Flask app.

@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<p>{{ user.username }}: {{ user.score }}</p>
+<h1>{{ title }}</h1>
+<h1>{{ actual_score }}</h1>
+<h1>{{ actual_score_low }}</h1>
+<h2 class="game-plot-text">Plot: {{ plot }}</h2>
+<form method="POST" id="user_form">
+  {{ form.hidden_tag() }}
+
+  {% for field in form if field.widget.input_type != 'hidden' %}
+  {% for error in field.errors %}
+  <span class="text-danger">{{ error }}</span>
+  {% endfor %}
+  {{ field(placeholder=field.label.text, class="form-control") }}
+  {% endfor %}
+</form>
+{% endblock %}
