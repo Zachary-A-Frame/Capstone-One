@@ -1,3 +1,20 @@
+# Setup
+## Step one
+Start by cloning this repository onto your machine.
+## Step two
+Navigate to your local repository
+
+>pip install -r requirements.txt
+
+## Step three
+Seed the database
+One way to do this: run ipython in the terminal
+> ipython
+
+> run seed.py
+
+This may take a moment.
+
 # Capstone One: Moviebuster
 ## Schema Selection
 You can find the DB Schema under the csv folder. Within, there's a few files:
