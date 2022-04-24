@@ -1,18 +1,16 @@
 {% extends 'base.html' %}
-
+​
 {% block content %}
-<p>{{ user.username }}: {{ user.score }}</p>
-<h1>{{ movie.title }}</h1>
-<h1>{{ movie.actual_score }}</h1>
-<h2 class="game-plot-text">Plot: {{ movie.plot }}</h2>
-<form method="POST" id="user_form">
-  {{ form.hidden_tag() }}
+<h4> {{ user.username }}: {{ user.score }} </h4>
 
-  {% for field in form if field.widget.input_type != 'hidden' %}
-  {% for error in field.errors %}
+<!-- Debugging purposes only -->
+<!-- <h1>{{ movie.title }}</h1> -->
+<!-- <h1>{{ movie.actual_score }}</h1> -->
+<h2 class="game-plot-text">Plot: {{ movie.plot }}</h2>
+<form method="POST" id="user_form" action="/">
   <span class="text-danger">{{ error }}</span>
-  {% endfor %}
-  {{ field(placeholder=field.label.text, class="form-control") }}
-  {% endfor %}
+  {{ form.csrf_token }}
+  {{ form.guess(placeholder=form.guess.label.text, class="form-control") }}
+  {{ form.movie_id(value=movie.id, class="form-control") }}
 </form>
 {% endblock %}
