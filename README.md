@@ -1,12 +1,12 @@
 # Setup
-## Step one
+## Clone the Repo
 Start by cloning this repository onto your machine.
-## Step two
+## Install requirements
 Navigate to your local repository
 
 >pip install -r requirements.txt
 
-## Step three
+## Seed the Database
 Seed the database
 One way to do this: run ipython in the terminal
 > ipython
@@ -15,6 +15,8 @@ One way to do this: run ipython in the terminal
 
 This may take a moment.
 
+## Run the app
+> flask run --reload
 # Capstone One: Moviebuster
 ## Schema Selection
 You can find the DB Schema under the csv folder. Within, there's a few files:
